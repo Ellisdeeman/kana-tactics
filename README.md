@@ -149,4 +149,4 @@ python3 -m http.server 4173
 
 Then open `http://127.0.0.1:4173/`. Tests cover romaji, SM-2, the export formats, weak-word weighting, and full battles that can be won or lost.
 
-GitHub Actions deploys the repository root to GitHub Pages on every push to `main` (`.github/workflows/pages.yml`).
+GitHub Actions deploys the repository root to GitHub Pages on every push to `main` (`.github/workflows/pages.yml`). The first time, set the repository’s Pages source to **GitHub Actions**. After that, the site is https://ellisdeeman.github.io/kana-tactics/.
