@@ -10,6 +10,12 @@ export const ABILITIES = {
   fire: { id: "fire", name: "火", en: "Fire", job: "mage", kind: "damage", power: 1.85, range: 4, target: "enemy", pool: "kanji" },
   water: { id: "water", name: "水", en: "Water", job: "mage", kind: "damage", power: 1.7, range: 4, target: "enemy", pool: "kanji" },
   chant: { id: "chant", name: "詠唱", en: "Chant", job: "mage", kind: "damage", power: 1.6, range: 3, target: "enemy", pool: "kanjiVocab" },
+  listen: { id: "listen", name: "聞き耳", en: "Listen", job: "chemist", kind: "damage", power: 1.35, range: 3, target: "enemy", pool: "listen" },
+  echo: { id: "echo", name: "残響", en: "Echo", job: "mage", kind: "damage", power: 1.55, range: 4, target: "enemy", pool: "listen" },
+  combo: { id: "combo", name: "連撃", en: "Combo", job: "monk", kind: "damage", power: 1.75, range: 1, target: "enemy", pool: "conj" },
+  form: { id: "form", name: "活用", en: "Form", job: "monk", kind: "damage", power: 1.45, range: 2, target: "enemy", pool: "conj" },
+  particle: { id: "particle", name: "助詞打ち", en: "Particle", job: "knight", kind: "damage", power: 1.65, range: 1, target: "enemy", pool: "particle" },
+  oath: { id: "oath", name: "誓い", en: "Oath", job: "knight", kind: "damage", power: 2.05, range: 2, target: "enemy", pool: "sentence" },
 };
 
 const ROWS = [
@@ -27,13 +33,30 @@ function tileChar(ch) {
   if (ch === "#") return "tree";
   if (ch === "~") return "water";
   if (ch === "=") return "path";
+  if (ch === "+") return "stone";
   return "grass";
 }
 
-export function createMap() {
-  const tiles = ROWS.map((row) => [...row].map(tileChar));
+export function mapFromRows(rows) {
+  const tiles = rows.map((row) => [...row].map(tileChar));
   const blocked = tiles.map((row) => row.map((t) => t === "tree" || t === "water"));
   return { w: tiles[0].length, h: tiles.length, tiles, blocked };
+}
+
+export function createMap() {
+  return mapFromRows(ROWS);
+}
+
+/** Damage from a kanji reading is the only thing a kanji-quirk enemy takes. */
+export function damageAllowed(target, source) {
+  if (target?.quirk !== "kanji") return true;
+  return source === "kanji";
+}
+
+function sourceOf(ability) {
+  const pool = ability?.pool;
+  if (pool === "kanji" || pool === "kanjiVocab") return "kanji";
+  return pool || "basic";
 }
 
 function unit(partial) {
@@ -281,6 +304,10 @@ export function targetsFor(state, unit, ability) {
 
 export function applyBasicAttack(state, attacker, target) {
   if (!canStrike(state, attacker, target, attacker.range)) return { damage: 0, defeated: false };
+  if (!damageAllowed(target, "basic")) {
+    state.log.push(`${target.nameJp}はかんじしかきかない`);
+    return { damage: 0, defeated: false, grade: "normal", resisted: true };
+  }
   const damage = strikeAmount(attacker.atk, target.def, 1, "normal", state.rng);
   target.hp = Math.max(0, target.hp - damage);
   const defeated = target.hp <= 0;
@@ -297,6 +324,10 @@ export function applyAbility(state, attacker, abilityId, target, grade) {
   }
   if (!canStrike(state, attacker, target, ability.range, { los: ability.kind !== "heal", self: ability.kind === "heal" })) {
     return { ability, damage: 0, heal: 0, defeated: false, grade, missed: true };
+  }
+  if (ability.kind !== "heal" && !damageAllowed(target, sourceOf(ability))) {
+    state.log.push(`${target.nameJp}はかんじしかきかない`);
+    return { ability, damage: 0, heal: 0, defeated: false, grade, resisted: true };
   }
   if (ability.kind === "heal") {
     const heal = healAmount(ability.power, grade, state.rng);
@@ -398,6 +429,30 @@ export function autoStep(state, style) {
     applyBasicAttack(state, unit, plan.target);
   }
   endTurn(state);
+}
+
+export function createEncounter(spec) {
+  const map = mapFromRows(spec.rows);
+  const units = spec.units.map((partial) => unit({
+    hp: partial.maxHp,
+    ct: 0,
+    abilities: [],
+    range: 1,
+    ...partial,
+  }));
+  return {
+    map,
+    units,
+    rng: spec.rng || Math.random,
+    turn: 0,
+    current: null,
+    over: null,
+    log: [],
+    kind: spec.kind || "campaign",
+    battleId: spec.id || null,
+    focusIds: spec.focusIds || null,
+    duelDone: false,
+  };
 }
 
 export function autoBattle(style, seed = 1, limit = 280) {

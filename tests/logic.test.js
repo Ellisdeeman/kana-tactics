@@ -23,13 +23,35 @@ import {
   studySets,
   uniqueIso,
 } from "../js/srs.js";
-import { buildPools, prepareCatalog, selectPrompt } from "../js/prompt.js";
+import { buildPools, choiceIsCorrect, prepareCatalog, selectPrompt } from "../js/prompt.js";
+import {
+  CAMPAIGN,
+  buildDailyEncounter,
+  buildEncounter,
+  dailyAvailable,
+  dailyWordIds,
+  isBattleOpen,
+  levelFor,
+  localDay,
+  migrateSave,
+  recordVictory,
+  scramblePrompt,
+  selectConjPrompt,
+  selectListenPrompt,
+  selectParticlePrompt,
+  selectSentencePrompt,
+  unlockedJobs,
+} from "../js/campaign.js";
 import {
   ABILITIES,
+  applyAbility,
   applyBasicAttack,
   autoBattle,
+  autoStep,
   canStrike,
   createBattle,
+  createEncounter,
+  damageAllowed,
   mulberry32,
   planOffense,
   reachable,
@@ -298,4 +320,108 @@ test("the first actor is a player and movement stays on the map", () => {
   }
   const plan = planOffense(state, state.units.find((u) => u.id === "gob"));
   assert.ok(plan.path.length >= 1);
+});
+
+test("old saves keep results and study data", () => {
+  const save = migrateSave({
+    cards: { "kana:あ": { id: "あ", type: "kana", seen: true, reps: 2, ease: 2.6, intervalDays: 6, due: 0, correct: 2, incorrect: 0 } },
+    results: [{ id: "あ", type: "kana", correct: true, ms: 1200 }],
+    study: { known: [1, 250], weak: [250] },
+    sound: false,
+    lastExportDate: "2026-10-07T12:00:00.000Z",
+  });
+  assert.equal(save.results.length, 1);
+  assert.equal(save.results[0].id, "あ");
+  assert.deepEqual(save.study.weak, [250]);
+  assert.equal(save.sound, false);
+  assert.deepEqual(save.campaign.cleared, []);
+  assert.equal(save.lastExportDate, "2026-10-07T12:00:00.000Z");
+});
+
+test("campaign wins unlock the next battle, a job, and stay winnable", () => {
+  let save = migrateSave(null);
+  assert.equal(isBattleOpen([], "crossing"), true);
+  assert.equal(isBattleOpen([], "market"), false);
+  for (const battle of CAMPAIGN) {
+    assert.equal(isBattleOpen(save.campaign.cleared, battle.id), true, battle.id);
+    const spec = buildEncounter(battle.id, save, mulberry32(3));
+    const state = startBattle(createEncounter(spec));
+    const tiles = new Set();
+    for (const unit of state.units) {
+      assert.equal(state.map.blocked[unit.y][unit.x], false, `${battle.id} ${unit.id}`);
+      const key = `${unit.x},${unit.y}`;
+      assert.equal(tiles.has(key), false, key);
+      tiles.add(key);
+    }
+    let n = 0;
+    while (!state.over && n++ < 400) autoStep(state, "perfect");
+    assert.equal(state.over, "win", `${battle.id} ${state.over} turn ${state.turn}`);
+    const next = recordVictory(save, battle.id);
+    save = { ...save, campaign: { cleared: next.cleared, seen: [] }, xp: next.xp };
+  }
+  assert.deepEqual(unlockedJobs(save.campaign.cleared), ["squire", "chemist", "mage", "monk", "knight"]);
+  assert.ok(levelFor(save.xp.ren) >= 2);
+});
+
+test("daily battle uses weak words once per calendar day", () => {
+  const day = new Date("2026-10-07T15:00:00");
+  const save = migrateSave({ study: { known: [250, 20, 48], weak: [250, 20] }, cards: {} });
+  assert.deepEqual(dailyWordIds(save, new Set([20, 48, 250]), day.getTime()), [250, 20]);
+  assert.equal(dailyAvailable(save.daily, day), true);
+  const spec = buildDailyEncounter(save, new Set([20, 48, 250]), day, mulberry32(2));
+  assert.deepEqual(spec.focusIds, [250, 20]);
+  assert.equal(spec.kind, "daily");
+  const done = { day: localDay(day), finished: true };
+  assert.equal(dailyAvailable(done, day), false);
+  assert.equal(dailyAvailable(done, new Date("2026-10-08T01:00:00")), true);
+  const dueSave = migrateSave({
+    study: { known: [], weak: [] },
+    cards: { "vocab:48": { id: 48, type: "vocab", seen: true, due: 0, reps: 1, ease: 2.5, intervalDays: 1, correct: 1, incorrect: 0 } },
+  });
+  assert.deepEqual(dailyWordIds(dueSave, new Set([48, 250]), day.getTime()), [48]);
+});
+
+test("conj, particles, listening, and kanji resist stay N5 and exportable", () => {
+  const rng = mulberry32(5);
+  const conj = selectConjPrompt(rng);
+  assert.equal(conj.item.type, "vocab");
+  assert.equal(Number.isInteger(conj.item.id), true);
+  assert.equal(choiceIsCorrect(conj, conj.correct), true);
+  assert.equal(answersMatch("kakimasu", ["かきます"]) || choiceIsCorrect(conj, conj.item.accept[0]), true);
+  const particle = selectParticlePrompt(rng);
+  assert.equal(particle.item.type, "kana");
+  assert.ok(particle.item.id.length <= 8);
+  assert.equal(choiceIsCorrect(particle, particle.correct), true);
+  const duel = selectSentencePrompt(rng);
+  assert.equal(duel.steps.length, 2);
+  assert.ok(duel.steps.every((step) => step.item.type === "kana" && step.item.id.length <= 8));
+  const listen = selectListenPrompt(catalog.vocab, rng, [250]);
+  assert.equal(listen.item.id, 250);
+  assert.equal(listen.hideJp, true);
+  assert.equal(choiceIsCorrect(listen, listen.correct), true);
+  const scrambled = scramblePrompt(selectPrompt(pools, "hira", {}, { known: [], weak: [] }, rng));
+  assert.equal(scrambled.scrambled, true);
+  assert.match(scrambled.item.japanese, /[\u30a0-\u30ff]/);
+  assert.equal(damageAllowed({ quirk: "kanji" }, "kanji"), true);
+  assert.equal(damageAllowed({ quirk: "kanji" }, "basic"), false);
+  assert.equal(damageAllowed({ quirk: "kanji" }, "conj"), false);
+  const wraith = {
+    id: "w", name: "Wraith", nameJp: "かげ", team: "enemy", sprite: "wraith", color: "#9a8cff",
+    quirk: "kanji", maxHp: 20, atk: 1, def: 0, spd: 1, mov: 1, range: 1, x: 1, y: 1, abilities: [],
+  };
+  const hero = {
+    id: "sou", name: "Sou", nameJp: "ソウ", team: "player", sprite: "mage", color: "#7d6cf2",
+    maxHp: 20, atk: 12, def: 0, spd: 1, mov: 1, range: 1, x: 1, y: 2, abilities: ["fire", "slash"],
+  };
+  const state = startBattle(createEncounter({
+    id: "resist", kind: "campaign", rows: ["....", "....", "...."], units: [hero, wraith], rng: mulberry32(1),
+  }));
+  const sou = state.units.find((u) => u.id === "sou");
+  const foe = state.units.find((u) => u.id === "w");
+  const basic = applyBasicAttack(state, sou, foe);
+  assert.equal(basic.resisted, true);
+  assert.equal(foe.hp, foe.maxHp);
+  const spell = applyAbility(state, sou, "fire", foe, "perfect");
+  assert.ok(spell.damage > 0);
+  assert.ok(foe.hp < foe.maxHp);
 });

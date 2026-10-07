@@ -1,6 +1,30 @@
-import { ABILITIES, applyAbility, applyBasicAttack, applyMove, buildPath, canStrike, createBattle, endTurn, living, planOffense, previewQueue, reachable, startBattle, targetsFor } from "./battle.js";
+import { ABILITIES, applyAbility, applyBasicAttack, applyMove, buildPath, canStrike, createEncounter, endTurn, living, planOffense, previewQueue, reachable, startBattle, targetsFor } from "./battle.js";
+import { createAudio } from "./audio.js";
+import {
+  CAMPAIGN,
+  STORIES,
+  abilitiesFor,
+  availableGear,
+  buildDailyEncounter,
+  buildEncounter,
+  clearedList,
+  dailyAvailable,
+  isBattleOpen,
+  levelFor,
+  localDay,
+  migrateSave,
+  partyFor,
+  recordVictory,
+  scramblePrompt,
+  selectConjPrompt,
+  selectListenPrompt,
+  selectParticlePrompt,
+  selectSentencePrompt,
+  storyHtml,
+  xpToNext,
+} from "./campaign.js";
 import { createRenderer } from "./render.js";
-import { answersMatch, kanaToRomaji } from "./romaji.js";
+import { kanaToRomaji } from "./romaji.js";
 import { buildPools, choiceIsCorrect, indexCatalog, prepareCatalog, selectPrompt } from "./prompt.js";
 import {
   PERFECT_MS,
@@ -41,6 +65,7 @@ const ui = {
 };
 
 let save = loadSave();
+const audio = createAudio();
 let catalog = null;
 let pools = null;
 let byKey = null;
@@ -53,25 +78,17 @@ let promptTimer = 0;
 function loadSave() {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
-    if (!raw) return emptySave();
-    const data = JSON.parse(raw);
-    return {
-      cards: data.cards && typeof data.cards === "object" ? data.cards : {},
-      results: normalizeResults(data.results),
-      lastExportDate: typeof data.lastExportDate === "string" ? data.lastExportDate : null,
-      study: {
-        known: Array.isArray(data.study?.known) ? data.study.known : [],
-        weak: Array.isArray(data.study?.weak) ? data.study.weak : [],
-      },
-      sound: data.sound !== false,
-    };
+    const data = raw ? JSON.parse(raw) : null;
+    const next = migrateSave(data);
+    next.results = normalizeResults(next.results);
+    return next;
   } catch {
     return emptySave();
   }
 }
 
 function emptySave() {
-  return { cards: {}, results: [], lastExportDate: null, study: { known: [], weak: [] }, sound: true };
+  return migrateSave(null);
 }
 
 function persist() {
@@ -106,6 +123,12 @@ function refreshStats() {
   const endSince = $("end-results-since");
   if (endSince) endSince.textContent = waiting;
   $("btn-sound").textContent = save.sound ? "Sound on" : "Sound off";
+  const dailyBtn = $("btn-daily");
+  if (dailyBtn) {
+    const open = dailyAvailable(save.daily);
+    dailyBtn.disabled = !open;
+    dailyBtn.textContent = open ? "Daily battle" : "Daily done";
+  }
 }
 
 function sinceLabel(n) {
@@ -248,10 +271,13 @@ function sleep(ms) {
 
 function showScreen(name) {
   ui.screen = name;
-  $("screen-title").hidden = name !== "title";
-  $("screen-battle").hidden = name !== "battle";
+  for (const id of ["title", "world", "story", "battle"]) {
+    $(`screen-${id}`).hidden = id !== name;
+  }
   $("btn-title").hidden = name === "title";
   if (name === "battle") ensureLoop();
+  if (save.sound && name !== "title") audio.start(name === "battle" ? "battle" : "world");
+  else if (name === "title") audio.stop();
 }
 
 function ensureLoop() {
@@ -363,7 +389,7 @@ function onTurn() {
   if (!battle || battle.token !== ui.token) return;
   renderHud();
   if (battle.over) {
-    showEnding();
+    if (!ui.ended) showEnding();
     return;
   }
   const unit = battle.current;
@@ -499,9 +525,15 @@ async function basicAttack(target) {
   renderActions();
   ui.lunge = { id: unit.id, dx: Math.sign(target.x - unit.x) * 0.2, dy: Math.sign(target.y - unit.y) * 0.2, until: performance.now() + 180 };
   const result = applyBasicAttack(battle, unit, target);
-  floatAt(target, result.damage ? `-${result.damage}` : "miss", "#f0c56a");
-  tone(result.damage ? 220 : 90, 0.12);
-  pushLog(`${unit.nameJp} attacks ${target.nameJp} for ${result.damage}.`);
+  if (result.resisted) {
+    floatAt(target, "Resist", "#9a8cff");
+    audio.sfx("fizzle");
+    pushLog(`${target.nameJp} ignores the strike. Only a kanji reading lands.`);
+  } else {
+    floatAt(target, result.damage ? `-${result.damage}` : "miss", "#f0c56a");
+    audio.sfx(result.damage ? "hit" : "fizzle");
+    pushLog(`${unit.nameJp} attacks ${target.nameJp} for ${result.damage}.`);
+  }
   renderHud();
   await sleep(380);
   if (token !== ui.token) return;
@@ -515,7 +547,7 @@ async function castAbility(ability, target) {
   ui.mode = "prompt";
   renderActions();
   setStatus("Answer to cast.");
-  const prompt = selectPrompt(pools, ability.pool, save.cards, save.study, battle.rng, ui.lastKey);
+  const prompt = promptFor(ability, target);
   const answer = await askPrompt(unit, ability, prompt);
   if (token !== ui.token) return;
   if (!answer) {
@@ -524,16 +556,15 @@ async function castAbility(ability, target) {
     renderActions();
     return;
   }
-  ui.lastKey = cardKey(prompt.item.type, prompt.item.id);
   const grade = gradeFromAnswer(answer.correct, answer.ms);
-  const card = reviewCard(save.cards[ui.lastKey] || emptyCard(prompt.item.type, prompt.item.id), grade);
-  save.cards[ui.lastKey] = card;
-  save.results.push({
-    id: prompt.item.type === "vocab" ? Number(prompt.item.id) : String(prompt.item.id),
-    type: prompt.item.type,
-    correct: answer.correct,
-    ms: answer.ms,
-  });
+  const rows = answer.rows || [{ item: prompt.item, correct: answer.correct, ms: answer.ms }];
+  for (const row of rows) {
+    const id = row.item.type === "vocab" ? Number(row.item.id) : String(row.item.id);
+    const key = cardKey(row.item.type, id);
+    ui.lastKey = key;
+    save.cards[key] = reviewCard(save.cards[key] || emptyCard(row.item.type, id), gradeFromAnswer(row.correct, row.ms));
+    save.results.push({ id, type: row.item.type, correct: row.correct === true, ms: row.ms });
+  }
   if (answer.correct) ui.stats.correct += 1;
   else ui.stats.wrong += 1;
   if (grade === "perfect") ui.stats.perfect += 1;
@@ -547,7 +578,11 @@ async function castAbility(ability, target) {
   }
   ui.lunge = { id: unit.id, dx: Math.sign(target.x - unit.x) * 0.16, dy: Math.sign(target.y - unit.y) * 0.16, until: performance.now() + 200 };
   const result = applyAbility(battle, unit, ability.id, target, grade);
-  if (grade === "wrong") {
+  if (result.resisted) {
+    floatAt(target, "Resist", "#9a8cff");
+    audio.sfx("fizzle");
+    pushLog(`${target.nameJp} shrugs it off. Only a kanji reading hurts them.`);
+  } else if (grade === "wrong") {
     floatAt(unit, "Fizzle", "#e15d55");
     tone(80, 0.18, "sawtooth");
     pushLog(`${unit.nameJp}'s ${ability.name} fizzles.`);
@@ -568,6 +603,18 @@ async function castAbility(ability, target) {
   onTurn();
 }
 
+function promptFor(ability, target) {
+  const focus = battle?.focusIds || null;
+  let prompt;
+  if (ability.pool === "conj") prompt = selectConjPrompt(battle.rng);
+  else if (ability.pool === "particle") prompt = selectParticlePrompt(battle.rng);
+  else if (ability.pool === "sentence") prompt = selectSentencePrompt(battle.rng);
+  else if (ability.pool === "listen") prompt = selectListenPrompt(catalog.vocab, battle.rng, focus);
+  else prompt = selectPrompt(pools, ability.pool, save.cards, save.study, battle.rng, ui.lastKey, Date.now(), focus);
+  if (target?.quirk === "scramble") prompt = scramblePrompt(prompt);
+  return prompt;
+}
+
 function explain(prompt) {
   const kana = prompt.item.accept[0];
   const roma = kanaToRomaji(kana);
@@ -582,9 +629,11 @@ function askPrompt(unit, ability, prompt) {
   const fill = $("timer-fill");
   root.hidden = false;
   $("prompt-kicker").textContent = `${unit.nameJp} · ${ability.name} ${ability.en}`;
-  $("prompt-ask").textContent = prompt.romaji ? "Read it in romaji or kana." : "What is the reading?";
-  $("prompt-jp").textContent = prompt.item.japanese;
-  $("prompt-meaning").textContent = prompt.item.meaning;
+  $("prompt-ask").textContent = prompt.ask || (prompt.romaji ? "Read it in romaji or kana." : prompt.mode === "listen" ? "What does it mean?" : "What is the reading?");
+  $("prompt-jp").textContent = prompt.hideJp ? "♪" : prompt.item.japanese;
+  $("prompt-meaning").textContent = prompt.mode === "listen" ? "" : (prompt.meaning || prompt.item.meaning);
+  audio.speak(prompt.speak || prompt.item.japanese || prompt.item.reading);
+  if (prompt.mode === "sentence") return askSentence(unit, ability, prompt);
   feedback.textContent = "";
   feedback.className = "feedback";
   input.value = "";
@@ -595,7 +644,7 @@ function askPrompt(unit, ability, prompt) {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "choice";
-    const spoken = prompt.romaji ? "" : kanaToRomaji(choice);
+    const spoken = prompt.romaji || prompt.mode === "particle" || prompt.mode === "listen" ? "" : kanaToRomaji(choice);
     btn.textContent = spoken && spoken !== choice ? `${choice}  ${spoken}` : choice;
     btn.addEventListener("click", () => finish(choice, choiceIsCorrect(prompt, choice)));
     choices.appendChild(btn);
@@ -669,13 +718,53 @@ function askPrompt(unit, ability, prompt) {
     ev.preventDefault();
     const value = input.value;
     if (!value.trim()) return;
-    finish(value, answersMatch(value, prompt.item.accept));
+    finish(value, choiceIsCorrect(prompt, value));
   };
   return new Promise((res) => { resolve = res; });
 }
 
+function askSentence(unit, ability, prompt) {
+  const steps = prompt.steps || [];
+  return (async () => {
+    const rows = [];
+    for (let i = 0; i < steps.length; i++) {
+      const step = { ...steps[i], speak: "", ask: `Blank ${i + 1} of ${steps.length}` };
+      const answer = await askPrompt(unit, ability, step);
+      if (!answer) return null;
+      rows.push({ item: step.item, correct: answer.correct, ms: answer.ms });
+    }
+    const ms = rows.reduce((n, row) => n + row.ms, 0);
+    return { correct: rows.every((row) => row.correct), ms, rows };
+  })();
+}
+
 async function runEnemy(token) {
   const unit = battle.current;
+  if (unit.quirk === "duel" && !battle.duelDone) {
+    battle.duelDone = true;
+    ui.mode = "prompt";
+    setStatus("Sentence duel. Pick both particles.");
+    const prompt = selectSentencePrompt(battle.rng);
+    const answer = await askPrompt(unit, { name: "決闘", en: "Duel" }, prompt);
+    if (token !== ui.token) return;
+    const rows = answer?.rows || [];
+    for (const row of rows) {
+      const id = String(row.item.id);
+      const key = cardKey("kana", id);
+      save.cards[key] = reviewCard(save.cards[key] || emptyCard("kana", id), gradeFromAnswer(row.correct, row.ms));
+      save.results.push({ id, type: "kana", correct: row.correct === true, ms: row.ms });
+    }
+    if (rows.length) persist();
+    if (answer?.correct) {
+      pushLog("The sentence holds. まおう loses the turn.");
+      audio.sfx("crit");
+      endTurn(battle);
+      onTurn();
+      return;
+    }
+    unit.atk += 4;
+    pushLog("The sentence breaks. まおう strikes harder.");
+  }
   const plan = planOffense(battle, unit, unit.range);
   if (plan.path && plan.path.length > 1) await walk(unit, plan.path);
   else if (plan.x != null) applyMove(battle, unit, plan.x, plan.y);
@@ -701,19 +790,35 @@ function showEnding() {
   renderActions();
   renderHud();
   const win = battle.over === "win";
+  if (win && battle.kind === "campaign" && battle.battleId) {
+    const next = recordVictory(save, battle.battleId);
+    save.campaign = { cleared: next.cleared, seen: save.campaign.seen || [] };
+    save.xp = next.xp;
+    persist();
+  }
+  if (battle.kind === "daily") {
+    save.daily = { day: localDay(), finished: true };
+    persist();
+  }
+  ui.ended = true;
   $("ending").hidden = false;
   $("end-title").textContent = win ? "Victory" : "Defeat";
   const answered = ui.stats.correct + ui.stats.wrong;
   $("end-copy").textContent = win
     ? `The field is clear. ${ui.stats.perfect} critical${ui.stats.perfect === 1 ? "" : "s"} · ${ui.stats.correct}/${answered || 0} readings correct.`
     : `The party fell. ${ui.stats.correct}/${answered || 0} readings correct. A fizzled spell spends the turn.`;
-  tone(win ? 520 : 110, 0.25, win ? "triangle" : "sawtooth");
+  const hint = $("end-hint");
+  if (hint) hint.hidden = battle.kind !== "daily";
+  $("btn-again").hidden = battle.kind === "daily";
+  audio.sfx(win ? "win" : "lose");
   pushLog(win ? "Victory." : "Defeat.");
 }
 
-function startFight() {
+function beginEncounter(spec) {
   ui.token += 1;
-  battle = createBattle();
+  ui.battleId = spec.id;
+  ui.kind = spec.kind;
+  battle = createEncounter(spec);
   battle.token = ui.token;
   startBattle(battle);
   ui.pos = {};
@@ -725,17 +830,155 @@ function startFight() {
   $("log").innerHTML = "";
   $("ending").hidden = true;
   $("prompt").hidden = true;
+  ui.ended = false;
   showScreen("battle");
-  pushLog("A goblin, an archer, and an imp block the road.");
+  const named = CAMPAIGN.find((b) => b.id === spec.id);
+  pushLog(spec.kind === "daily" ? "Today's weak words take the field." : `${named?.nameJp || "Battle"} — ${named?.blurb || ""}`);
   onTurn();
 }
 
+function renderStory() {
+  const story = STORIES[ui.storyId];
+  $("story-body").innerHTML = story ? storyHtml(story, save.cards, save.gloss) : "";
+  $("btn-gloss").textContent = save.gloss ? "Hide English" : "English";
+}
+
+function showStory(id, after) {
+  ui.storyId = id;
+  ui.afterStory = () => {
+    if (!save.campaign.seen.includes(id)) {
+      save.campaign.seen.push(id);
+      persist();
+    }
+    after();
+  };
+  renderStory();
+  showScreen("story");
+}
+
+function launchBattle(id) {
+  if (!isBattleOpen(clearedList(save.campaign), id)) return;
+  const key = `${id}-before`;
+  const start = () => beginEncounter(buildEncounter(id, save, Math.random));
+  if (STORIES[key] && !save.campaign.seen.includes(key)) showStory(key, start);
+  else start();
+}
+
+function showWorld() {
+  const cleared = clearedList(save.campaign);
+  const road = $("road");
+  road.innerHTML = "";
+  for (const node of CAMPAIGN) {
+    const open = isBattleOpen(cleared, node.id);
+    const done = cleared.includes(node.id);
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `node${done ? " done" : ""}${open ? "" : " locked"}`;
+    btn.disabled = !open;
+    btn.innerHTML = `<span class="node-jp" lang="ja">${node.nameJp}</span><span class="node-en">${node.name}</span><span class="node-blurb">${open ? node.blurb : "Locked"}</span>`;
+    btn.onclick = () => launchBattle(node.id);
+    li.appendChild(btn);
+    road.appendChild(li);
+  }
+  const roster = partyFor(cleared, 5).map((h) => `${h.nameJp} Lv${levelFor(save.xp?.[h.id] || 0)}`).join(" · ");
+  $("world-note").textContent = roster;
+  $("ending").hidden = true;
+  showScreen("world");
+}
+
+function startDaily() {
+  if (!dailyAvailable(save.daily)) {
+    toast("Today's battle is already finished.");
+    return;
+  }
+  const ids = new Set(catalog.vocab.map((w) => w.id));
+  beginEncounter(buildDailyEncounter(save, ids, new Date(), Math.random));
+}
+
+function openGear() {
+  const list = $("gear-list");
+  list.innerHTML = "";
+  const cleared = clearedList(save.campaign);
+  for (const hero of partyFor(cleared, 5)) {
+    const block = document.createElement("section");
+    block.className = "gear-hero";
+    const xp = save.xp?.[hero.id] || 0;
+    const next = xpToNext(xp);
+    const title = document.createElement("h3");
+    title.textContent = `${hero.nameJp} · Lv ${levelFor(xp)}${next != null ? ` · ${xp}/${next} XP` : ""}`;
+    block.appendChild(title);
+    const meta = document.createElement("p");
+    meta.className = "meaning";
+    meta.textContent = abilitiesFor(hero, xp, cleared).map((id) => ABILITIES[id]?.name).filter(Boolean).join(" · ");
+    block.appendChild(meta);
+    for (const slot of ["weapon", "armor"]) {
+      const label = document.createElement("label");
+      label.className = "type-line";
+      label.append(document.createTextNode(slot));
+      const sel = document.createElement("select");
+      const none = document.createElement("option");
+      none.value = "";
+      none.textContent = "None";
+      sel.appendChild(none);
+      const eq = save.gear?.[hero.id]?.[slot] || "";
+      for (const item of availableGear(hero.id, save.cards).filter((g) => g.slot === slot)) {
+        const opt = document.createElement("option");
+        opt.value = item.id;
+        opt.textContent = `${item.name} +${item.atk || item.def}`;
+        if (item.id === eq) opt.selected = true;
+        sel.appendChild(opt);
+      }
+      sel.onchange = () => {
+        save.gear[hero.id] = { ...(save.gear[hero.id] || {}), [slot]: sel.value || null };
+        persist();
+      };
+      label.appendChild(sel);
+      block.appendChild(label);
+    }
+    list.appendChild(block);
+  }
+  $("gear").hidden = false;
+}
+
 function bootControls() {
-  $("btn-start").onclick = () => startFight();
-  $("btn-again").onclick = () => startFight();
-  $("btn-title").onclick = () => { ui.token += 1; showScreen("title"); };
-  $("btn-end-title").onclick = () => { ui.token += 1; $("ending").hidden = true; showScreen("title"); };
-  $("btn-sound").onclick = () => { save.sound = !save.sound; persist(); tone(440, 0.08, "triangle"); };
+  $("btn-start").onclick = () => showWorld();
+  $("btn-daily").onclick = () => startDaily();
+  $("btn-again").onclick = () => {
+    if (ui.kind === "daily") return;
+    launchBattle(ui.battleId || "crossing");
+  };
+  $("btn-title").onclick = () => { ui.token += 1; audio.stop(); showScreen("title"); };
+  $("btn-end-title").onclick = () => {
+    ui.token += 1;
+    $("ending").hidden = true;
+    if (battle?.kind === "campaign" && battle.over === "win") showStory(`${battle.battleId}-after`, () => showWorld());
+    else if (battle?.kind === "campaign") showWorld();
+    else showScreen("title");
+  };
+  $("btn-world-title").onclick = () => showScreen("title");
+  $("btn-gear").onclick = () => openGear();
+  $("btn-gear-close").onclick = () => { $("gear").hidden = true; };
+  $("btn-gloss").onclick = () => {
+    save.gloss = !save.gloss;
+    persist();
+    renderStory();
+  };
+  $("btn-story-next").onclick = () => {
+    const next = ui.afterStory;
+    ui.afterStory = null;
+    if (next) next();
+    else showWorld();
+  };
+  $("btn-sound").onclick = () => {
+    save.sound = !save.sound;
+    audio.setEnabled(save.sound);
+    if (save.sound) {
+      audio.start(ui.screen === "battle" ? "battle" : "world");
+      audio.sfx("ui");
+    }
+    persist();
+  };
   $("btn-export-results").onclick = exportResults;
   $("btn-end-export").onclick = exportResults;
   $("btn-export-progress").onclick = exportProgress;
@@ -786,8 +1029,10 @@ async function main() {
   catalog = prepareCatalog({ vocab, kana, kanji });
   pools = buildPools(catalog);
   byKey = indexCatalog(catalog);
+  audio.setEnabled(save.sound);
   bootControls();
   refreshStats();
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
 }
 
 main().catch((err) => {

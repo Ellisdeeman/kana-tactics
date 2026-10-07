@@ -21,6 +21,7 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
+html { overflow: hidden; }
 body {
   font-family: var(--body);
   background:
@@ -28,9 +29,13 @@ body {
     var(--bg);
   color: var(--cream);
   min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: manipulation;
 }
-button, input { font-family: inherit; }
-button { touch-action: manipulation; }
+button, input, select { font-family: inherit; font-size: 16px; }
+button { touch-action: manipulation; min-height: 48px; }
 [hidden] { display: none !important; }
 
 .topbar {
@@ -74,6 +79,9 @@ button:disabled { opacity: .45; cursor: default; }
   max-width: 880px;
   margin: 0 auto;
   padding: 12px 16px calc(28px + var(--safe-b));
+  height: calc(100dvh - 52px - var(--safe-t));
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .hero h1 {
   font-family: var(--display);
@@ -212,6 +220,48 @@ button:disabled { opacity: .45; cursor: default; }
   z-index: 40; font-weight: 700; box-shadow: var(--shadow); max-width: calc(100% - 24px);
 }
 
+.world, .story {
+  height: calc(100dvh - 52px - var(--safe-t));
+  overflow: auto;
+  padding: 12px 14px calc(16px + var(--safe-b));
+  -webkit-overflow-scrolling: touch;
+}
+.world h1, .story .kicker { font-family: var(--display); margin: 0 0 8px; }
+.road { list-style: none; margin: 12px 0; padding: 0 0 0 18px; border-left: 4px solid var(--gold2); display: grid; gap: 10px; }
+.road li { margin: 0; }
+.node {
+  width: 100%; text-align: left; display: grid; gap: 2px;
+  background: var(--panel); color: var(--cream); border: 2px solid var(--line); border-radius: 16px; padding: 12px 14px;
+}
+.node-jp { font-size: 1.35rem; color: var(--gold); }
+.node-en { font-weight: 700; }
+.node-blurb { color: var(--muted); font-size: .92rem; }
+.node.done { border-color: var(--green); }
+.node.locked { opacity: .55; }
+.story-line { font-size: 1.35rem; line-height: 1.7; margin: 0 0 12px; }
+.story-line rt { font-size: .55em; }
+.story-line rt.faded { opacity: .18; }
+.story-en { display: block; color: var(--muted); font-size: .95rem; margin-top: 2px; }
+.gear-hero { margin: 12px 0; padding-top: 8px; border-top: 1px solid var(--line); }
+.gear-hero h3 { margin: 0 0 4px; }
+.gear-hero select {
+  display: block; width: 100%; margin-top: 6px; min-height: 48px;
+  background: #120e22; color: var(--cream); border: 2px solid var(--line); border-radius: 12px; padding: 8px;
+}
+@media (orientation: landscape) and (max-height: 520px) {
+  .battle {
+    grid-template:
+      "order map" auto
+      "side map" minmax(0, 1fr)
+      "actions map" auto
+      / minmax(200px, 34vw) minmax(0, 1fr);
+    height: calc(100dvh - 48px - var(--safe-t));
+  }
+  .map-wrap { grid-area: map; min-height: 0; }
+  .side { grid-area: side; max-height: none; }
+  .actions { grid-area: actions; }
+  #queue { grid-area: order; }
+}
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; }
 }

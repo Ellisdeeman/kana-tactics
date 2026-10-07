@@ -37,6 +37,7 @@ const TOP = {
   path: "#c6a36a",
   water: "#3f8fd0",
   tree: "#4e8a38",
+  stone: "#8d88a8",
 };
 
 function shade(hex, amt) {
@@ -82,76 +83,270 @@ function drawBlock(ctx, x, y, top, left, right) {
   ctx.stroke();
 }
 
-function px(ctx, x, y, w, h, fill) {
-  ctx.fillStyle = "#1b1430";
-  ctx.fillRect(x - 1, y - 1, w + 2, h + 2);
-  ctx.fillStyle = fill;
-  ctx.fillRect(x, y, w, h);
+const INK = {
+  ".": null,
+  k: "#1b1430",
+  s: "#f3c7a4",
+  e: "#1b1430",
+  h: "#6b442c",
+  r: "#c4473a",
+  g: "#3cba78",
+  b: "#7d6cf2",
+  y: "#e6c36a",
+  w: "#f7f4ee",
+  n: "#8d6a43",
+  m: "#d7e2f4",
+  p: "#f0a8cc",
+  o: "#93c24a",
+  a: "#e07a3a",
+  u: "#9a8cff",
+  d: "#6a3a8a",
+  c: "#c43b4a",
+};
+
+/** Original 12×16 pixel actors. Feet sit on the last row. */
+const SPRITES = {
+  squire: [
+    "..kkkkkk..",
+    ".kssssssk.",
+    ".kseessk.",
+    ".kssssssk.",
+    "kkrrrrrrkk",
+    ".krrrrrrk.",
+    "..rrrrrr..",
+    "..rr..rr..",
+    "..kk..kk..",
+    ".kkk..kkk.",
+    "..m....m..",
+    "..m....m..",
+    "..mmmmmm..",
+    "...m..m...",
+    "...k..k...",
+    "..kk..kk..",
+  ],
+  chemist: [
+    "..kkkkkk..",
+    ".kssssssk.",
+    ".kseessk.",
+    ".kwwwwwk.",
+    "kkggggggkk",
+    ".kggggggk.",
+    "..gggggg..",
+    "..gg..gg..",
+    "..ww..ww..",
+    "..wwwwww..",
+    "...w..w...",
+    "..kw..wk..",
+    "..kk..kk..",
+    "...w.ww...",
+    "..www.w...",
+    "...k......",
+  ],
+  mage: [
+    "....kk....",
+    "...kbbk...",
+    "..kbbbbk..",
+    ".kbbbbbbk.",
+    "kksssssskk",
+    ".kseessk.",
+    ".kssssssk.",
+    "kkbbbbbbkk",
+    ".kbbbbbbk.",
+    "..bb..bb..",
+    "..bb..bb..",
+    "..kk..kk..",
+    "...k..k...",
+    "..kk..kk..",
+    "...y.y....",
+    "..yy.yy...",
+  ],
+  monk: [
+    "..kkkkkk..",
+    ".kssssssk.",
+    ".kseessk.",
+    ".kssssssk.",
+    "kkyyyyyykk",
+    ".kyyyyyyk.",
+    "..yyyyyy..",
+    "..yy..yy..",
+    "..nn..nn..",
+    "..nn..nn..",
+    "...n..n...",
+    "..kn..nk..",
+    "..kk..kk..",
+    "...y......",
+    "..yyy.....",
+    "...y......",
+  ],
+  knight: [
+    "..kkkkkk..",
+    ".kmmmmmmk.",
+    ".kmeeemk.",
+    ".kmmmmmmk.",
+    "kkmmmmmmkk",
+    ".kbbbbbbk.",
+    "..bbbbbb..",
+    "..bb..bb..",
+    "..mm..mm..",
+    "..mm..mm..",
+    "...m..m...",
+    "..km..mk..",
+    "..kk..kk..",
+    "....mmmm..",
+    "...mmmmm..",
+    "..m....y..",
+  ],
+  goblin: [
+    "...oooo...",
+    "..ookkoo..",
+    ".ookooko..",
+    ".ooeeeoo..",
+    "kkooooookk",
+    ".koooooook.",
+    "..oooooo..",
+    "..oo..oo..",
+    "..kk..kk..",
+    ".okk..kko.",
+    "..o....o..",
+    "..o....o..",
+    "...o..o...",
+    "..ko..ok..",
+    "..kk..kk..",
+    "..........",
+  ],
+  archer: [
+    "..kkkkkk..",
+    ".kssssssk.",
+    ".kseessk.",
+    ".kssssssk.",
+    "kknnnnnnkk",
+    ".knnnnnnk.",
+    "..nnnnnn..",
+    "..nn..nn..",
+    "..yy..nn..",
+    ".yy...nn..",
+    "yy....nn..",
+    ".yy...kk..",
+    "..y...k...",
+    "...k..k...",
+    "..kk..kk..",
+    "..........",
+  ],
+  imp: [
+    "...p..p...",
+    "..yp..py..",
+    ".kppppppk.",
+    ".kpeepppk.",
+    "kkppppppkk",
+    ".kppppppk.",
+    "..pppppp..",
+    "..pp..pp..",
+    "..kk..kk..",
+    "...p..p...",
+    "..kp..pk..",
+    "..kk..kk..",
+    "...y..y...",
+    "..yy..yy..",
+    "..........",
+    "..........",
+  ],
+  fox: [
+    "aa......aa",
+    ".aa....aa.",
+    "..aaaaaa..",
+    ".kaeeeaaak",
+    ".kaaaaaaak",
+    "kkaaaaaakk",
+    ".kaaaaaaak",
+    "..aa..aa..",
+    "..kk..kk..",
+    "...a..a...",
+    "..ka..ak..",
+    "..kk..kk..",
+    "..........",
+    "..........",
+    "..........",
+    "..........",
+  ],
+  wraith: [
+    "....uu....",
+    "...uuuu...",
+    "..ukeeuk..",
+    ".uuuuuuuu.",
+    ".uuwwwwuu.",
+    "kuuuuuuuuk",
+    ".uuuuuuuu.",
+    "..uu..uu..",
+    "..uu..uu..",
+    "...u..u...",
+    "..uu..uu..",
+    ".uuu..uuu.",
+    "uu......uu",
+    "u........u",
+    "..........",
+    "..........",
+  ],
+  boss: [
+    "kkkkkkkkkk",
+    "kcccccccck",
+    "kcceeeecck",
+    "kccccccccck",
+    "kkccccccckk",
+    ".kccccccck.",
+    "..cc..cc..",
+    "..cc..cc..",
+    "..yy..yy..",
+    ".kyy..yyk.",
+    "..kk..kk..",
+    "...c..c...",
+    "..kc..ck..",
+    ".kkc..ckk.",
+    "yy......yy",
+    "y........y",
+  ],
+};
+
+function blitSprite(ctx, grid, x, y) {
+  const h = grid.length;
+  const w = Math.max(...grid.map((row) => row.length));
+  const left = Math.round(x - w / 2);
+  const top = Math.round(y - h);
+  for (let row = 0; row < h; row++) {
+    for (let col = 0; col < grid[row].length; col++) {
+      const color = INK[grid[row][col]];
+      if (!color) continue;
+      ctx.fillStyle = color;
+      ctx.fillRect(left + col, top + row, 1, 1);
+    }
+  }
 }
 
 function drawSprite(ctx, x, y, unit, now) {
-  const bob = Math.sin(now / 280 + unit.x * 1.7) * 1.3;
+  const bob = Math.sin(now / 280 + unit.x * 1.7) * 1.2;
   ctx.fillStyle = "rgba(18, 12, 36, .38)";
   ctx.beginPath();
-  ctx.ellipse(x, y + 2, 11, 4.5, 0, 0, Math.PI * 2);
+  ctx.ellipse(x, y + 2, 8, 3, 0, 0, Math.PI * 2);
   ctx.fill();
   const fy = y + bob;
-  const skin = unit.sprite === "goblin" ? "#93c24a" : unit.sprite === "imp" ? "#f0a8cc" : "#f3c7a4";
-  px(ctx, x - 6, fy - 12, 4, 8, "#2a2144");
-  px(ctx, x + 2, fy - 12, 4, 8, "#2a2144");
-  px(ctx, x - 8, fy - 24, 16, 14, unit.color);
-  px(ctx, x - 6, fy - 36, 12, 12, skin);
-  if (unit.sprite === "mage") {
-    ctx.fillStyle = unit.color;
-    ctx.beginPath();
-    ctx.moveTo(x, fy - 52);
-    ctx.lineTo(x - 7, fy - 36);
-    ctx.lineTo(x + 7, fy - 36);
-    ctx.closePath();
-    ctx.fill();
-    ctx.strokeStyle = "#1b1430";
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  } else if (unit.sprite !== "goblin" && unit.sprite !== "imp") {
-    px(ctx, x - 6, fy - 40, 12, 5, "#3a2a22");
-  }
-  if (unit.sprite === "squire") {
-    px(ctx, x + 10, fy - 34, 3, 20, "#d7e0f2");
-    px(ctx, x + 7, fy - 16, 9, 3, "#e6c36a");
-  } else if (unit.sprite === "chemist") {
-    px(ctx, x + 9, fy - 24, 6, 9, "#dff6ff");
-    px(ctx, x + 10, fy - 28, 4, 4, "#8fcdf0");
-    px(ctx, x - 2, fy - 21, 4, 7, "#f7fbff");
-    px(ctx, x - 4, fy - 19, 8, 3, "#f7fbff");
-  } else if (unit.sprite === "goblin") {
-    px(ctx, x - 12, fy - 34, 5, 5, skin);
-    px(ctx, x + 7, fy - 34, 5, 5, skin);
-  } else if (unit.sprite === "archer") {
-    ctx.strokeStyle = "#e6c36a";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(x + 12, fy - 22, 8, Math.PI * 0.55, Math.PI * 1.45);
-    ctx.stroke();
-    px(ctx, x + 11, fy - 30, 2, 16, "#f4efe4");
-  } else if (unit.sprite === "imp") {
-    px(ctx, x - 5, fy - 46, 3, 7, "#f0c36a");
-    px(ctx, x + 2, fy - 46, 3, 7, "#f0c36a");
-  }
-  px(ctx, x - 4, fy - 32, 2, 2, "#1b1430");
-  px(ctx, x + 2, fy - 32, 2, 2, "#1b1430");
-  const w = 28;
+  blitSprite(ctx, SPRITES[unit.sprite] || SPRITES.goblin, x, fy);
+  const w = 18;
   const ratio = Math.max(0, unit.hp / unit.maxHp);
   ctx.fillStyle = "#1b1430";
-  ctx.fillRect(x - w / 2, fy - 58, w, 5);
+  ctx.fillRect(x - w / 2, fy - 20, w, 3);
   ctx.fillStyle = ratio < 0.35 ? "#e15d55" : "#5dce8a";
-  ctx.fillRect(x - w / 2 + 1, fy - 57, (w - 2) * ratio, 3);
+  ctx.fillRect(x - w / 2 + 1, fy - 19, (w - 2) * ratio, 1);
+}
+
+function fill(ctx, x, y, w, h, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, w, h);
 }
 
 function drawTree(ctx, x, y) {
   const p = iso(x, y);
   const cx = p.x;
   const cy = p.y + TH / 2;
-  px(ctx, cx - 2, cy - 16, 4, 12, "#6b4a2e");
+  fill(ctx, cx - 2, cy - 16, 4, 12, "#6b4a2e");
   ctx.fillStyle = "#1b1430";
   ctx.beginPath();
   ctx.moveTo(cx, cy - 34);

@@ -163,13 +163,18 @@ export function makePrompt(item, pool, rng) {
   };
 }
 
-export function selectPrompt(pools, poolName, cards, study, rng, avoidKey, now = Date.now()) {
+export function selectPrompt(pools, poolName, cards, study, rng, avoidKey, now = Date.now(), focusIds = null) {
   const sets = study && study.weak instanceof Set ? study : studySets(study || {});
-  const items = poolItems(pools, poolName, sets);
+  let items = poolItems(pools, poolName, sets);
+  const focus = focusIds ? new Set(focusIds) : null;
+  if (focus && VOCAB_POOLS.has(poolName)) {
+    const hit = items.filter((it) => focus.has(it.id));
+    if (hit.length) items = hit;
+  }
   if (!items.length) throw new Error(`Empty prompt pool: ${poolName}`);
   const item = pickWeighted(
     items,
-    (it) => promptWeight(it, cards[cardKey(it.type, it.id)], sets, now),
+    (it) => promptWeight(it, cards[cardKey(it.type, it.id)], sets, now) * (focus && focus.has(it.id) ? 6 : 1),
     rng,
     avoidKey,
   );
@@ -177,5 +182,6 @@ export function selectPrompt(pools, poolName, cards, study, rng, avoidKey, now =
 }
 
 export function choiceIsCorrect(prompt, choice) {
+  if (prompt?.mode === "listen") return String(choice).trim().toLowerCase() === String(prompt.correct).trim().toLowerCase();
   return choice === prompt.correct || answersMatch(choice, prompt.item.accept);
 }

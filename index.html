@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Kana Tactics — a one-map tactical RPG for learning JLPT N5 Japanese.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="description" content="Kana Tactics — an N5 tactical RPG for learning Japanese.">
   <meta name="theme-color" content="#141228">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
   <title>Kana Tactics</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
@@ -24,23 +29,32 @@
   <main id="screen-title">
     <section class="hero">
       <h1 lang="ja">カナ・タクティクス <em>Kana Tactics</em></h1>
-      <p class="lede">A one-map tactics battle for JLPT N5. Move, strike, and cast — abilities land only if you can read the Japanese.</p>
+      <p class="lede">An N5 campaign. Win a battle to open the next map, a new job, and new readings.</p>
       <div class="hero-actions">
-        <button type="button" class="solid" id="btn-start">Start battle</button>
+        <button type="button" class="solid" id="btn-start">Campaign</button>
+        <button type="button" class="ghost" id="btn-daily">Daily battle</button>
       </div>
     </section>
     <section class="jobs">
       <article class="job">
         <h2><i class="swatch" style="background:#e15a4a"></i>レン · Squire</h2>
-        <p>Hiragana strikes, plus hiragana-only N5 words. 切り込み and 号令.</p>
+        <p>Hiragana, then hiragana words. Starts the road.</p>
       </article>
       <article class="job">
         <h2><i class="swatch" style="background:#3cba78"></i>ミナ · Chemist</h2>
-        <p>Katakana and loanword items such as コーヒー and パン. Potions and tosses.</p>
+        <p>Katakana and loanwords. Later, a listening spell.</p>
       </article>
       <article class="job">
         <h2><i class="swatch" style="background:#7d6cf2"></i>ソウ · Black Mage</h2>
-        <p>N5 kanji such as 火, 水, and 木, plus kanji words. Fire, water, and a chant.</p>
+        <p>N5 kanji such as 火 and 水. The wraith only falls to these.</p>
+      </article>
+      <article class="job">
+        <h2><i class="swatch" style="background:#e0a04a"></i>ケン · Monk</h2>
+        <p>Verb and adjective forms: dictionary, ます, て, た, ない.</p>
+      </article>
+      <article class="job">
+        <h2><i class="swatch" style="background:#8eb6ff"></i>アキ · Knight</h2>
+        <p>Particles は が を に で へ と も の, then a sentence duel.</p>
       </article>
     </section>
     <details class="howto">
@@ -50,7 +64,7 @@
         <li>Move along the gold tiles, then attack, use an ability, or wait.</li>
         <li>Basic attacks always connect. Abilities ask for a reading: tap a choice, or type romaji or kana.</li>
         <li>Right within 4 seconds is a critical hit. A slower correct answer is half strength. Wrong, or 30 seconds of silence, and the action fizzles.</li>
-        <li>Win by defeating the goblin, the archer, and the imp.</li>
+        <li>Clear the map to unlock the next battle. A daily fight uses today's weak words.</li>
       </ol>
     </details>
     <section class="panel tools">
@@ -72,6 +86,25 @@
         <p>Reviews and not-yet-exported answers stay in this browser, including after you close the tab. They add up across every battle. Export results once, at the end of the day: the file is the JLPT Vocab Quest exchange format, and the queue clears only after the download starts. Import a study list of known and weak N5 word ids to drill weak words more often.</p>
       </div>
     </section>
+  </main>
+
+  <main id="screen-world" class="world" hidden>
+    <h1>World</h1>
+    <p class="lede" id="world-note">Win a battle to walk further.</p>
+    <ol id="road" class="road"></ol>
+    <div class="hero-actions">
+      <button type="button" class="ghost" id="btn-gear">Gear</button>
+      <button type="button" class="ghost" id="btn-world-title">Title</button>
+    </div>
+  </main>
+
+  <main id="screen-story" class="story" hidden>
+    <p class="kicker" id="story-kicker">Story</p>
+    <div id="story-body"></div>
+    <div class="hero-actions">
+      <button type="button" class="ghost" id="btn-gloss">English</button>
+      <button type="button" class="solid" id="btn-story-next">Continue</button>
+    </div>
   </main>
 
   <main id="screen-battle" class="battle" hidden>
@@ -114,6 +147,7 @@
     <div class="sheet">
       <h2 class="end-title" id="end-title">Victory</h2>
       <p id="end-copy"></p>
+      <p id="end-hint" class="results-count" hidden>Export today's results before you close the tab.</p>
       <div class="end-actions">
         <button type="button" class="solid" id="btn-again">Fight again</button>
         <button type="button" class="ghost" id="btn-end-export">Export results</button>
@@ -125,6 +159,17 @@
 
   <input type="file" id="file-progress" accept="application/json,.json" hidden>
   <input type="file" id="file-study" accept="application/json,.json" hidden>
+  <div id="gear" class="overlay" hidden>
+    <div class="sheet">
+      <h2>Gear</h2>
+      <p class="meaning">A weapon or armor unlocks when you master the word behind it (two good reviews, or an interval of 6 days).</p>
+      <div id="gear-list"></div>
+      <div class="prompt-actions">
+        <button type="button" class="solid" id="btn-gear-close">Close</button>
+      </div>
+    </div>
+  </div>
+
   <div id="toast" class="toast" hidden></div>
   <script type="module" src="js/main.js"></script>
 </body>

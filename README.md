@@ -1,12 +1,14 @@
 # Kana Tactics
 
-A one-map tactical RPG for learning JLPT N5 Japanese. Fight on an isometric grid, spend your turn on a move plus an attack, an ability, or a wait, and answer a reading prompt whenever you use an ability. It is a static site: no server, no account. Progress stays in the browser.
+A tactical RPG for learning JLPT N5 Japanese. Clear a campaign of seven maps, or fight one daily battle drawn from the words you are weak on. Abilities land only if you can read, conjugate, or build the Japanese. It is a static site: no server, no account. Progress stays in the browser.
 
 Play it at **https://ellisdeeman.github.io/kana-tactics/**
 
 ## How to play
 
-Ren (Squire), Mina (Chemist), and Sou (Black Mage) face a goblin, an archer, and an imp. Speed fills a turn gauge; the unit who reaches 100 acts, then their gauge drops. On your turn, walk the gold tiles (up to your move), then:
+Open **Campaign** and walk the road. The first map is only Ren. Each win unlocks the next map, a new job, and a new kind of N5 prompt. Progress, levels, and gear stay in the same browser save as your reviews.
+
+Speed fills a turn gauge; the unit who reaches 100 acts, then their gauge drops. On your turn, walk the gold tiles (up to your move), then:
 
 - **Attack** — a basic strike. No Japanese prompt.
 - **Ability** — opens a prompt. Pick the reading, or type it in romaji or kana.
@@ -20,19 +22,39 @@ The answer sets the effect:
 | Correct | Slower than 4 seconds | Half strength |
 | Wrong, or 30 seconds with no answer | — | The action fizzles |
 
-Defeat every enemy to win. If the party falls, you lose. The same battle can go either way: solid readings finish enemies quickly, and fizzled spells give the enemy free turns.
+Defeat every enemy to win. If the party falls, you lose. A short N5 scene, with furigana, plays between maps. **English** shows the translation. Furigana fades on kanji you have mastered (two good reviews, or an interval of 6 days).
 
-Phone and desktop both work. Tap tiles and the large action buttons. On a keyboard, 1–4 picks a choice and Enter submits what you typed.
+**Daily battle** is one fight per calendar day. It drills weak word ids from an imported study list, or SRS-due vocab if that list is empty. Afterward, export the results you have not sent yet.
+
+Phone and desktop both work, including add-to-home-screen. Tap tiles and the large action buttons. On a keyboard, 1–4 picks a choice and Enter submits what you typed. Sound covers effects, music, and spoken words.
 
 ### Jobs
 
-| Hero | Job | Prompts |
-| --- | --- | --- |
-| レン Ren | Squire | Hiragana (切り込み), and hiragana-only N5 words (号令) |
-| ミナ Mina | Chemist | Katakana (カタカナ投げ), and katakana loanwords such as コーヒー (ポーション) |
-| ソウ Sou | Black Mage | N5 kanji such as 火 水 木 (火 / 水), and N5 words written with kanji (詠唱) |
+| Hero | Job | Unlocks | Prompts |
+| --- | --- | --- | --- |
+| レン Ren | Squire | Start | Hiragana (切り込み), and hiragana-only N5 words (号令, from level 2) |
+| ミナ Mina | Chemist | Crossing | Katakana and loanwords. 聞き耳, after the forest, plays a word and asks the meaning |
+| ソウ Sou | Black Mage | Market | N5 kanji such as 火 and 水, and kanji words. 残響 is the mage's listening spell |
+| ケン Ken | Monk | Shrine | N5 verb forms (dictionary, ます, て, た, ない) and i/na adjective forms |
+| アキ Aki | Knight | Dojo | Particles は が を に で へ と も の. 誓い, after the gate, is a two-blank sentence |
 
-A scheduler picks the actual item, so 火 is not always the character 火 — it is whichever kanji is due.
+A scheduler picks the actual item, so 火 is not always the character 火 — it is whichever kanji is due. Levels raise HP and attack and open the next ability. Gear unlocks when the word behind it is mastered.
+
+### Enemies
+
+The shadow (かげ) only takes damage from a kanji reading. The fox (きつね) shows the prompt in katakana. The demon king (まおう) opens its first turn with a timed sentence: both particles must be right, or its next strike hits harder.
+
+### Maps
+
+| Map | New lesson |
+| --- | --- |
+| みち Crossing | Hiragana. Mina joins next |
+| いちば Market | Katakana. Sou joins next |
+| じんじゃ Shrine | Kanji wraith. Ken joins next |
+| どうじょう Dojo | Conjugation. Aki joins next |
+| もり Forest | Scrambled katakana. Listening spells next |
+| もん Gate | Wraith and fox together. Sentence oath next |
+| まおう Throne | Boss duel |
 
 ## Spaced repetition
 
@@ -149,4 +171,10 @@ python3 -m http.server 4173
 
 Then open `http://127.0.0.1:4173/`. Tests cover romaji, SM-2, the export formats, weak-word weighting, and full battles that can be won or lost.
 
-GitHub Actions deploys the repository root to GitHub Pages on every push to `main` (`.github/workflows/pages.yml`). The first time, set the repository’s Pages source to **GitHub Actions**. After that, the site is https://ellisdeeman.github.io/kana-tactics/.
+GitHub Actions deploys the repository root to GitHub Pages on every push to `main` (`.github/workflows/pages.yml`). The site is https://ellisdeeman.github.io/kana-tactics/. Add it to the home screen from Safari; a service worker caches the game for offline play.
+
+## Art and audio
+
+Sprites, tiles, sound effects, and the looping music are original to this game.
+
+Spoken audio uses the device's Japanese voice through the Web Speech API (`ja-JP`). JLPT Vocab Quest's clips are not included: its word audio is Microsoft neural TTS generated for that app's personal, non-commercial use, and its human sentences are Tatoeba recordings under CC BY-NC 4.0.
