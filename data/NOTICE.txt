@@ -1,0 +1,10 @@
+N5 vocabulary (data/n5-vocab.json)
+  Word ids are the JLPT Vocab Quest N5 indexes (0–717), from the list embedded in
+  https://github.com/Ellisdeeman/n5-vocab-quest
+  That list follows the N5 deck at
+  https://github.com/jamsinclair/open-anki-jlpt-decks (MIT, Copyright (c) 2020 Jamie Sinclair).
+  English glosses derive from JMdict (EDRDG, CC BY-SA 4.0): https://www.edrdg.org/jmdict/j_jmdict.html
+
+Kana and kanji charts (data/kana.json, data/kanji.json)
+  Original to this game. Kanji are the JLPT N5 set, keyed by the character, which is
+  the same key JLPT Vocab Quest uses for kanji. Readings are the common N5 on/kun forms.

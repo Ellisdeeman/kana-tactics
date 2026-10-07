@@ -1,0 +1,1874 @@
+[
+  {
+    "id": "あ",
+    "script": "hiragana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "a",
+    "meaning": "hiragana a"
+  },
+  {
+    "id": "ア",
+    "script": "katakana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "a",
+    "meaning": "katakana a"
+  },
+  {
+    "id": "い",
+    "script": "hiragana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "i",
+    "meaning": "hiragana i"
+  },
+  {
+    "id": "イ",
+    "script": "katakana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "i",
+    "meaning": "katakana i"
+  },
+  {
+    "id": "う",
+    "script": "hiragana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "u",
+    "meaning": "hiragana u"
+  },
+  {
+    "id": "ウ",
+    "script": "katakana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "u",
+    "meaning": "katakana u"
+  },
+  {
+    "id": "え",
+    "script": "hiragana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "e",
+    "meaning": "hiragana e"
+  },
+  {
+    "id": "エ",
+    "script": "katakana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "e",
+    "meaning": "katakana e"
+  },
+  {
+    "id": "お",
+    "script": "hiragana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "o",
+    "meaning": "hiragana o"
+  },
+  {
+    "id": "オ",
+    "script": "katakana",
+    "row": "a",
+    "tier": 1,
+    "intro": true,
+    "reading": "o",
+    "meaning": "katakana o"
+  },
+  {
+    "id": "か",
+    "script": "hiragana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ka",
+    "meaning": "hiragana ka"
+  },
+  {
+    "id": "カ",
+    "script": "katakana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ka",
+    "meaning": "katakana ka"
+  },
+  {
+    "id": "き",
+    "script": "hiragana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ki",
+    "meaning": "hiragana ki"
+  },
+  {
+    "id": "キ",
+    "script": "katakana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ki",
+    "meaning": "katakana ki"
+  },
+  {
+    "id": "く",
+    "script": "hiragana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ku",
+    "meaning": "hiragana ku"
+  },
+  {
+    "id": "ク",
+    "script": "katakana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ku",
+    "meaning": "katakana ku"
+  },
+  {
+    "id": "け",
+    "script": "hiragana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ke",
+    "meaning": "hiragana ke"
+  },
+  {
+    "id": "ケ",
+    "script": "katakana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ke",
+    "meaning": "katakana ke"
+  },
+  {
+    "id": "こ",
+    "script": "hiragana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ko",
+    "meaning": "hiragana ko"
+  },
+  {
+    "id": "コ",
+    "script": "katakana",
+    "row": "ka",
+    "tier": 1,
+    "intro": false,
+    "reading": "ko",
+    "meaning": "katakana ko"
+  },
+  {
+    "id": "さ",
+    "script": "hiragana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "sa",
+    "meaning": "hiragana sa"
+  },
+  {
+    "id": "サ",
+    "script": "katakana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "sa",
+    "meaning": "katakana sa"
+  },
+  {
+    "id": "し",
+    "script": "hiragana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "shi",
+    "meaning": "hiragana shi"
+  },
+  {
+    "id": "シ",
+    "script": "katakana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "shi",
+    "meaning": "katakana shi"
+  },
+  {
+    "id": "す",
+    "script": "hiragana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "su",
+    "meaning": "hiragana su"
+  },
+  {
+    "id": "ス",
+    "script": "katakana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "su",
+    "meaning": "katakana su"
+  },
+  {
+    "id": "せ",
+    "script": "hiragana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "se",
+    "meaning": "hiragana se"
+  },
+  {
+    "id": "セ",
+    "script": "katakana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "se",
+    "meaning": "katakana se"
+  },
+  {
+    "id": "そ",
+    "script": "hiragana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "so",
+    "meaning": "hiragana so"
+  },
+  {
+    "id": "ソ",
+    "script": "katakana",
+    "row": "sa",
+    "tier": 1,
+    "intro": false,
+    "reading": "so",
+    "meaning": "katakana so"
+  },
+  {
+    "id": "た",
+    "script": "hiragana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "ta",
+    "meaning": "hiragana ta"
+  },
+  {
+    "id": "タ",
+    "script": "katakana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "ta",
+    "meaning": "katakana ta"
+  },
+  {
+    "id": "ち",
+    "script": "hiragana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "chi",
+    "meaning": "hiragana chi"
+  },
+  {
+    "id": "チ",
+    "script": "katakana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "chi",
+    "meaning": "katakana chi"
+  },
+  {
+    "id": "つ",
+    "script": "hiragana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "tsu",
+    "meaning": "hiragana tsu"
+  },
+  {
+    "id": "ツ",
+    "script": "katakana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "tsu",
+    "meaning": "katakana tsu"
+  },
+  {
+    "id": "て",
+    "script": "hiragana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "te",
+    "meaning": "hiragana te"
+  },
+  {
+    "id": "テ",
+    "script": "katakana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "te",
+    "meaning": "katakana te"
+  },
+  {
+    "id": "と",
+    "script": "hiragana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "to",
+    "meaning": "hiragana to"
+  },
+  {
+    "id": "ト",
+    "script": "katakana",
+    "row": "ta",
+    "tier": 1,
+    "intro": false,
+    "reading": "to",
+    "meaning": "katakana to"
+  },
+  {
+    "id": "な",
+    "script": "hiragana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "na",
+    "meaning": "hiragana na"
+  },
+  {
+    "id": "ナ",
+    "script": "katakana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "na",
+    "meaning": "katakana na"
+  },
+  {
+    "id": "に",
+    "script": "hiragana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "ni",
+    "meaning": "hiragana ni"
+  },
+  {
+    "id": "ニ",
+    "script": "katakana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "ni",
+    "meaning": "katakana ni"
+  },
+  {
+    "id": "ぬ",
+    "script": "hiragana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "nu",
+    "meaning": "hiragana nu"
+  },
+  {
+    "id": "ヌ",
+    "script": "katakana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "nu",
+    "meaning": "katakana nu"
+  },
+  {
+    "id": "ね",
+    "script": "hiragana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "ne",
+    "meaning": "hiragana ne"
+  },
+  {
+    "id": "ネ",
+    "script": "katakana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "ne",
+    "meaning": "katakana ne"
+  },
+  {
+    "id": "の",
+    "script": "hiragana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "no",
+    "meaning": "hiragana no"
+  },
+  {
+    "id": "ノ",
+    "script": "katakana",
+    "row": "na",
+    "tier": 1,
+    "intro": false,
+    "reading": "no",
+    "meaning": "katakana no"
+  },
+  {
+    "id": "は",
+    "script": "hiragana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "ha",
+    "meaning": "hiragana ha"
+  },
+  {
+    "id": "ハ",
+    "script": "katakana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "ha",
+    "meaning": "katakana ha"
+  },
+  {
+    "id": "ひ",
+    "script": "hiragana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "hi",
+    "meaning": "hiragana hi"
+  },
+  {
+    "id": "ヒ",
+    "script": "katakana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "hi",
+    "meaning": "katakana hi"
+  },
+  {
+    "id": "ふ",
+    "script": "hiragana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "fu",
+    "meaning": "hiragana fu"
+  },
+  {
+    "id": "フ",
+    "script": "katakana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "fu",
+    "meaning": "katakana fu"
+  },
+  {
+    "id": "へ",
+    "script": "hiragana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "he",
+    "meaning": "hiragana he"
+  },
+  {
+    "id": "ヘ",
+    "script": "katakana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "he",
+    "meaning": "katakana he"
+  },
+  {
+    "id": "ほ",
+    "script": "hiragana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "ho",
+    "meaning": "hiragana ho"
+  },
+  {
+    "id": "ホ",
+    "script": "katakana",
+    "row": "ha",
+    "tier": 1,
+    "intro": false,
+    "reading": "ho",
+    "meaning": "katakana ho"
+  },
+  {
+    "id": "ま",
+    "script": "hiragana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "ma",
+    "meaning": "hiragana ma"
+  },
+  {
+    "id": "マ",
+    "script": "katakana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "ma",
+    "meaning": "katakana ma"
+  },
+  {
+    "id": "み",
+    "script": "hiragana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "mi",
+    "meaning": "hiragana mi"
+  },
+  {
+    "id": "ミ",
+    "script": "katakana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "mi",
+    "meaning": "katakana mi"
+  },
+  {
+    "id": "む",
+    "script": "hiragana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "mu",
+    "meaning": "hiragana mu"
+  },
+  {
+    "id": "ム",
+    "script": "katakana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "mu",
+    "meaning": "katakana mu"
+  },
+  {
+    "id": "め",
+    "script": "hiragana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "me",
+    "meaning": "hiragana me"
+  },
+  {
+    "id": "メ",
+    "script": "katakana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "me",
+    "meaning": "katakana me"
+  },
+  {
+    "id": "も",
+    "script": "hiragana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "mo",
+    "meaning": "hiragana mo"
+  },
+  {
+    "id": "モ",
+    "script": "katakana",
+    "row": "ma",
+    "tier": 1,
+    "intro": false,
+    "reading": "mo",
+    "meaning": "katakana mo"
+  },
+  {
+    "id": "や",
+    "script": "hiragana",
+    "row": "ya",
+    "tier": 1,
+    "intro": false,
+    "reading": "ya",
+    "meaning": "hiragana ya"
+  },
+  {
+    "id": "ヤ",
+    "script": "katakana",
+    "row": "ya",
+    "tier": 1,
+    "intro": false,
+    "reading": "ya",
+    "meaning": "katakana ya"
+  },
+  {
+    "id": "ゆ",
+    "script": "hiragana",
+    "row": "ya",
+    "tier": 1,
+    "intro": false,
+    "reading": "yu",
+    "meaning": "hiragana yu"
+  },
+  {
+    "id": "ユ",
+    "script": "katakana",
+    "row": "ya",
+    "tier": 1,
+    "intro": false,
+    "reading": "yu",
+    "meaning": "katakana yu"
+  },
+  {
+    "id": "よ",
+    "script": "hiragana",
+    "row": "ya",
+    "tier": 1,
+    "intro": false,
+    "reading": "yo",
+    "meaning": "hiragana yo"
+  },
+  {
+    "id": "ヨ",
+    "script": "katakana",
+    "row": "ya",
+    "tier": 1,
+    "intro": false,
+    "reading": "yo",
+    "meaning": "katakana yo"
+  },
+  {
+    "id": "ら",
+    "script": "hiragana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "ra",
+    "meaning": "hiragana ra"
+  },
+  {
+    "id": "ラ",
+    "script": "katakana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "ra",
+    "meaning": "katakana ra"
+  },
+  {
+    "id": "り",
+    "script": "hiragana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "ri",
+    "meaning": "hiragana ri"
+  },
+  {
+    "id": "リ",
+    "script": "katakana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "ri",
+    "meaning": "katakana ri"
+  },
+  {
+    "id": "る",
+    "script": "hiragana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "ru",
+    "meaning": "hiragana ru"
+  },
+  {
+    "id": "ル",
+    "script": "katakana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "ru",
+    "meaning": "katakana ru"
+  },
+  {
+    "id": "れ",
+    "script": "hiragana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "re",
+    "meaning": "hiragana re"
+  },
+  {
+    "id": "レ",
+    "script": "katakana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "re",
+    "meaning": "katakana re"
+  },
+  {
+    "id": "ろ",
+    "script": "hiragana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "ro",
+    "meaning": "hiragana ro"
+  },
+  {
+    "id": "ロ",
+    "script": "katakana",
+    "row": "ra",
+    "tier": 1,
+    "intro": false,
+    "reading": "ro",
+    "meaning": "katakana ro"
+  },
+  {
+    "id": "わ",
+    "script": "hiragana",
+    "row": "wa",
+    "tier": 1,
+    "intro": false,
+    "reading": "wa",
+    "meaning": "hiragana wa"
+  },
+  {
+    "id": "ワ",
+    "script": "katakana",
+    "row": "wa",
+    "tier": 1,
+    "intro": false,
+    "reading": "wa",
+    "meaning": "katakana wa"
+  },
+  {
+    "id": "を",
+    "script": "hiragana",
+    "row": "wa",
+    "tier": 1,
+    "intro": false,
+    "reading": "wo",
+    "meaning": "hiragana wo"
+  },
+  {
+    "id": "ヲ",
+    "script": "katakana",
+    "row": "wa",
+    "tier": 1,
+    "intro": false,
+    "reading": "wo",
+    "meaning": "katakana wo"
+  },
+  {
+    "id": "ん",
+    "script": "hiragana",
+    "row": "n",
+    "tier": 1,
+    "intro": false,
+    "reading": "n",
+    "meaning": "hiragana n"
+  },
+  {
+    "id": "ン",
+    "script": "katakana",
+    "row": "n",
+    "tier": 1,
+    "intro": false,
+    "reading": "n",
+    "meaning": "katakana n"
+  },
+  {
+    "id": "が",
+    "script": "hiragana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "ga",
+    "meaning": "hiragana ga"
+  },
+  {
+    "id": "ガ",
+    "script": "katakana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "ga",
+    "meaning": "katakana ga"
+  },
+  {
+    "id": "ぎ",
+    "script": "hiragana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "gi",
+    "meaning": "hiragana gi"
+  },
+  {
+    "id": "ギ",
+    "script": "katakana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "gi",
+    "meaning": "katakana gi"
+  },
+  {
+    "id": "ぐ",
+    "script": "hiragana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "gu",
+    "meaning": "hiragana gu"
+  },
+  {
+    "id": "グ",
+    "script": "katakana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "gu",
+    "meaning": "katakana gu"
+  },
+  {
+    "id": "げ",
+    "script": "hiragana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "ge",
+    "meaning": "hiragana ge"
+  },
+  {
+    "id": "ゲ",
+    "script": "katakana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "ge",
+    "meaning": "katakana ge"
+  },
+  {
+    "id": "ご",
+    "script": "hiragana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "go",
+    "meaning": "hiragana go"
+  },
+  {
+    "id": "ゴ",
+    "script": "katakana",
+    "row": "ga",
+    "tier": 2,
+    "intro": false,
+    "reading": "go",
+    "meaning": "katakana go"
+  },
+  {
+    "id": "ざ",
+    "script": "hiragana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "za",
+    "meaning": "hiragana za"
+  },
+  {
+    "id": "ザ",
+    "script": "katakana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "za",
+    "meaning": "katakana za"
+  },
+  {
+    "id": "じ",
+    "script": "hiragana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "ji",
+    "meaning": "hiragana ji"
+  },
+  {
+    "id": "ジ",
+    "script": "katakana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "ji",
+    "meaning": "katakana ji"
+  },
+  {
+    "id": "ず",
+    "script": "hiragana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "zu",
+    "meaning": "hiragana zu"
+  },
+  {
+    "id": "ズ",
+    "script": "katakana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "zu",
+    "meaning": "katakana zu"
+  },
+  {
+    "id": "ぜ",
+    "script": "hiragana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "ze",
+    "meaning": "hiragana ze"
+  },
+  {
+    "id": "ゼ",
+    "script": "katakana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "ze",
+    "meaning": "katakana ze"
+  },
+  {
+    "id": "ぞ",
+    "script": "hiragana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "zo",
+    "meaning": "hiragana zo"
+  },
+  {
+    "id": "ゾ",
+    "script": "katakana",
+    "row": "za",
+    "tier": 2,
+    "intro": false,
+    "reading": "zo",
+    "meaning": "katakana zo"
+  },
+  {
+    "id": "だ",
+    "script": "hiragana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "da",
+    "meaning": "hiragana da"
+  },
+  {
+    "id": "ダ",
+    "script": "katakana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "da",
+    "meaning": "katakana da"
+  },
+  {
+    "id": "ぢ",
+    "script": "hiragana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "di",
+    "meaning": "hiragana di"
+  },
+  {
+    "id": "ヂ",
+    "script": "katakana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "di",
+    "meaning": "katakana di"
+  },
+  {
+    "id": "づ",
+    "script": "hiragana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "du",
+    "meaning": "hiragana du"
+  },
+  {
+    "id": "ヅ",
+    "script": "katakana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "du",
+    "meaning": "katakana du"
+  },
+  {
+    "id": "で",
+    "script": "hiragana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "de",
+    "meaning": "hiragana de"
+  },
+  {
+    "id": "デ",
+    "script": "katakana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "de",
+    "meaning": "katakana de"
+  },
+  {
+    "id": "ど",
+    "script": "hiragana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "do",
+    "meaning": "hiragana do"
+  },
+  {
+    "id": "ド",
+    "script": "katakana",
+    "row": "da",
+    "tier": 2,
+    "intro": false,
+    "reading": "do",
+    "meaning": "katakana do"
+  },
+  {
+    "id": "ば",
+    "script": "hiragana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "ba",
+    "meaning": "hiragana ba"
+  },
+  {
+    "id": "バ",
+    "script": "katakana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "ba",
+    "meaning": "katakana ba"
+  },
+  {
+    "id": "び",
+    "script": "hiragana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "bi",
+    "meaning": "hiragana bi"
+  },
+  {
+    "id": "ビ",
+    "script": "katakana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "bi",
+    "meaning": "katakana bi"
+  },
+  {
+    "id": "ぶ",
+    "script": "hiragana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "bu",
+    "meaning": "hiragana bu"
+  },
+  {
+    "id": "ブ",
+    "script": "katakana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "bu",
+    "meaning": "katakana bu"
+  },
+  {
+    "id": "べ",
+    "script": "hiragana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "be",
+    "meaning": "hiragana be"
+  },
+  {
+    "id": "ベ",
+    "script": "katakana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "be",
+    "meaning": "katakana be"
+  },
+  {
+    "id": "ぼ",
+    "script": "hiragana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "bo",
+    "meaning": "hiragana bo"
+  },
+  {
+    "id": "ボ",
+    "script": "katakana",
+    "row": "ba",
+    "tier": 2,
+    "intro": false,
+    "reading": "bo",
+    "meaning": "katakana bo"
+  },
+  {
+    "id": "ぱ",
+    "script": "hiragana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "pa",
+    "meaning": "hiragana pa"
+  },
+  {
+    "id": "パ",
+    "script": "katakana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "pa",
+    "meaning": "katakana pa"
+  },
+  {
+    "id": "ぴ",
+    "script": "hiragana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "pi",
+    "meaning": "hiragana pi"
+  },
+  {
+    "id": "ピ",
+    "script": "katakana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "pi",
+    "meaning": "katakana pi"
+  },
+  {
+    "id": "ぷ",
+    "script": "hiragana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "pu",
+    "meaning": "hiragana pu"
+  },
+  {
+    "id": "プ",
+    "script": "katakana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "pu",
+    "meaning": "katakana pu"
+  },
+  {
+    "id": "ぺ",
+    "script": "hiragana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "pe",
+    "meaning": "hiragana pe"
+  },
+  {
+    "id": "ペ",
+    "script": "katakana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "pe",
+    "meaning": "katakana pe"
+  },
+  {
+    "id": "ぽ",
+    "script": "hiragana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "po",
+    "meaning": "hiragana po"
+  },
+  {
+    "id": "ポ",
+    "script": "katakana",
+    "row": "pa",
+    "tier": 2,
+    "intro": false,
+    "reading": "po",
+    "meaning": "katakana po"
+  },
+  {
+    "id": "きゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "kya",
+    "meaning": "hiragana kya"
+  },
+  {
+    "id": "キャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "kya",
+    "meaning": "katakana kya"
+  },
+  {
+    "id": "きゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "kyu",
+    "meaning": "hiragana kyu"
+  },
+  {
+    "id": "キュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "kyu",
+    "meaning": "katakana kyu"
+  },
+  {
+    "id": "きょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "kyo",
+    "meaning": "hiragana kyo"
+  },
+  {
+    "id": "キョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "kyo",
+    "meaning": "katakana kyo"
+  },
+  {
+    "id": "しゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "sha",
+    "meaning": "hiragana sha"
+  },
+  {
+    "id": "シャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "sha",
+    "meaning": "katakana sha"
+  },
+  {
+    "id": "しゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "shu",
+    "meaning": "hiragana shu"
+  },
+  {
+    "id": "シュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "shu",
+    "meaning": "katakana shu"
+  },
+  {
+    "id": "しょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "sho",
+    "meaning": "hiragana sho"
+  },
+  {
+    "id": "ショ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "sho",
+    "meaning": "katakana sho"
+  },
+  {
+    "id": "ちゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "cha",
+    "meaning": "hiragana cha"
+  },
+  {
+    "id": "チャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "cha",
+    "meaning": "katakana cha"
+  },
+  {
+    "id": "ちゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "chu",
+    "meaning": "hiragana chu"
+  },
+  {
+    "id": "チュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "chu",
+    "meaning": "katakana chu"
+  },
+  {
+    "id": "ちょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "cho",
+    "meaning": "hiragana cho"
+  },
+  {
+    "id": "チョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "cho",
+    "meaning": "katakana cho"
+  },
+  {
+    "id": "にゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "nya",
+    "meaning": "hiragana nya"
+  },
+  {
+    "id": "ニャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "nya",
+    "meaning": "katakana nya"
+  },
+  {
+    "id": "にゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "nyu",
+    "meaning": "hiragana nyu"
+  },
+  {
+    "id": "ニュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "nyu",
+    "meaning": "katakana nyu"
+  },
+  {
+    "id": "にょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "nyo",
+    "meaning": "hiragana nyo"
+  },
+  {
+    "id": "ニョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "nyo",
+    "meaning": "katakana nyo"
+  },
+  {
+    "id": "ひゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "hya",
+    "meaning": "hiragana hya"
+  },
+  {
+    "id": "ヒャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "hya",
+    "meaning": "katakana hya"
+  },
+  {
+    "id": "ひゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "hyu",
+    "meaning": "hiragana hyu"
+  },
+  {
+    "id": "ヒュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "hyu",
+    "meaning": "katakana hyu"
+  },
+  {
+    "id": "ひょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "hyo",
+    "meaning": "hiragana hyo"
+  },
+  {
+    "id": "ヒョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "hyo",
+    "meaning": "katakana hyo"
+  },
+  {
+    "id": "みゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "mya",
+    "meaning": "hiragana mya"
+  },
+  {
+    "id": "ミャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "mya",
+    "meaning": "katakana mya"
+  },
+  {
+    "id": "みゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "myu",
+    "meaning": "hiragana myu"
+  },
+  {
+    "id": "ミュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "myu",
+    "meaning": "katakana myu"
+  },
+  {
+    "id": "みょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "myo",
+    "meaning": "hiragana myo"
+  },
+  {
+    "id": "ミョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "myo",
+    "meaning": "katakana myo"
+  },
+  {
+    "id": "りゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "rya",
+    "meaning": "hiragana rya"
+  },
+  {
+    "id": "リャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "rya",
+    "meaning": "katakana rya"
+  },
+  {
+    "id": "りゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "ryu",
+    "meaning": "hiragana ryu"
+  },
+  {
+    "id": "リュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "ryu",
+    "meaning": "katakana ryu"
+  },
+  {
+    "id": "りょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "ryo",
+    "meaning": "hiragana ryo"
+  },
+  {
+    "id": "リョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "ryo",
+    "meaning": "katakana ryo"
+  },
+  {
+    "id": "ぎゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "gya",
+    "meaning": "hiragana gya"
+  },
+  {
+    "id": "ギャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "gya",
+    "meaning": "katakana gya"
+  },
+  {
+    "id": "ぎゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "gyu",
+    "meaning": "hiragana gyu"
+  },
+  {
+    "id": "ギュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "gyu",
+    "meaning": "katakana gyu"
+  },
+  {
+    "id": "ぎょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "gyo",
+    "meaning": "hiragana gyo"
+  },
+  {
+    "id": "ギョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "gyo",
+    "meaning": "katakana gyo"
+  },
+  {
+    "id": "じゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "ja",
+    "meaning": "hiragana ja"
+  },
+  {
+    "id": "ジャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "ja",
+    "meaning": "katakana ja"
+  },
+  {
+    "id": "じゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "ju",
+    "meaning": "hiragana ju"
+  },
+  {
+    "id": "ジュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "ju",
+    "meaning": "katakana ju"
+  },
+  {
+    "id": "じょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "jo",
+    "meaning": "hiragana jo"
+  },
+  {
+    "id": "ジョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "jo",
+    "meaning": "katakana jo"
+  },
+  {
+    "id": "びゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "bya",
+    "meaning": "hiragana bya"
+  },
+  {
+    "id": "ビャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "bya",
+    "meaning": "katakana bya"
+  },
+  {
+    "id": "びゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "byu",
+    "meaning": "hiragana byu"
+  },
+  {
+    "id": "ビュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "byu",
+    "meaning": "katakana byu"
+  },
+  {
+    "id": "びょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "byo",
+    "meaning": "hiragana byo"
+  },
+  {
+    "id": "ビョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "byo",
+    "meaning": "katakana byo"
+  },
+  {
+    "id": "ぴゃ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "pya",
+    "meaning": "hiragana pya"
+  },
+  {
+    "id": "ピャ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "pya",
+    "meaning": "katakana pya"
+  },
+  {
+    "id": "ぴゅ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "pyu",
+    "meaning": "hiragana pyu"
+  },
+  {
+    "id": "ピュ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "pyu",
+    "meaning": "katakana pyu"
+  },
+  {
+    "id": "ぴょ",
+    "script": "hiragana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "pyo",
+    "meaning": "hiragana pyo"
+  },
+  {
+    "id": "ピョ",
+    "script": "katakana",
+    "row": "yoon",
+    "tier": 3,
+    "intro": false,
+    "reading": "pyo",
+    "meaning": "katakana pyo"
+  }
+]

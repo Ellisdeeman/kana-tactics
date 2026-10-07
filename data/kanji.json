@@ -1,0 +1,810 @@
+[
+  {
+    "id": "一",
+    "readings": [
+      "いち",
+      "ひと",
+      "ひとつ"
+    ],
+    "meaning": "one",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "人",
+    "readings": [
+      "ひと",
+      "じん",
+      "にん"
+    ],
+    "meaning": "person",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "十",
+    "readings": [
+      "じゅう",
+      "とお"
+    ],
+    "meaning": "ten",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "二",
+    "readings": [
+      "に",
+      "ふた"
+    ],
+    "meaning": "two",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "九",
+    "readings": [
+      "きゅう",
+      "く"
+    ],
+    "meaning": "nine",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "入",
+    "readings": [
+      "はいる",
+      "はい",
+      "にゅう"
+    ],
+    "meaning": "enter",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "八",
+    "readings": [
+      "はち",
+      "や"
+    ],
+    "meaning": "eight",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "七",
+    "readings": [
+      "なな",
+      "しち"
+    ],
+    "meaning": "seven",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "大",
+    "readings": [
+      "おおきい",
+      "おお",
+      "だい",
+      "たい"
+    ],
+    "meaning": "big",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "三",
+    "readings": [
+      "さん",
+      "みっ"
+    ],
+    "meaning": "three",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "上",
+    "readings": [
+      "うえ",
+      "じょう",
+      "あ"
+    ],
+    "meaning": "up",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "子",
+    "readings": [
+      "こ",
+      "し"
+    ],
+    "meaning": "child",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "下",
+    "readings": [
+      "した",
+      "か",
+      "げ"
+    ],
+    "meaning": "down",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "小",
+    "readings": [
+      "ちいさい",
+      "ちい",
+      "しょう"
+    ],
+    "meaning": "small",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "山",
+    "readings": [
+      "やま",
+      "さん"
+    ],
+    "meaning": "mountain",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "女",
+    "readings": [
+      "おんな",
+      "じょ"
+    ],
+    "meaning": "woman",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "川",
+    "readings": [
+      "かわ",
+      "せん"
+    ],
+    "meaning": "river",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "千",
+    "readings": [
+      "せん"
+    ],
+    "meaning": "thousand",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "日",
+    "readings": [
+      "ひ",
+      "にち",
+      "び"
+    ],
+    "meaning": "sun, day",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "中",
+    "readings": [
+      "なか",
+      "ちゅう"
+    ],
+    "meaning": "middle",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "月",
+    "readings": [
+      "つき",
+      "げつ",
+      "がつ"
+    ],
+    "meaning": "moon, month",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "五",
+    "readings": [
+      "ご",
+      "いつ"
+    ],
+    "meaning": "five",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "土",
+    "readings": [
+      "つち",
+      "ど"
+    ],
+    "meaning": "soil",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "円",
+    "readings": [
+      "えん"
+    ],
+    "meaning": "yen, circle",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "六",
+    "readings": [
+      "ろく",
+      "む"
+    ],
+    "meaning": "six",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "今",
+    "readings": [
+      "いま",
+      "こん"
+    ],
+    "meaning": "now",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "水",
+    "readings": [
+      "みず",
+      "すい"
+    ],
+    "meaning": "water",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "万",
+    "readings": [
+      "まん"
+    ],
+    "meaning": "ten thousand",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "出",
+    "readings": [
+      "でる",
+      "で",
+      "だす",
+      "しゅつ"
+    ],
+    "meaning": "exit",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "生",
+    "readings": [
+      "せい",
+      "なま",
+      "い"
+    ],
+    "meaning": "life, birth",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "四",
+    "readings": [
+      "よん",
+      "し",
+      "よ"
+    ],
+    "meaning": "four",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "午",
+    "readings": [
+      "ご"
+    ],
+    "meaning": "noon",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "木",
+    "readings": [
+      "き",
+      "もく",
+      "ぼく"
+    ],
+    "meaning": "tree, wood",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "本",
+    "readings": [
+      "ほん",
+      "もと"
+    ],
+    "meaning": "book, origin",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "外",
+    "readings": [
+      "そと",
+      "がい"
+    ],
+    "meaning": "outside",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "天",
+    "readings": [
+      "てん"
+    ],
+    "meaning": "heaven, sky",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "年",
+    "readings": [
+      "ねん",
+      "とし"
+    ],
+    "meaning": "year",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "北",
+    "readings": [
+      "きた",
+      "ほく"
+    ],
+    "meaning": "north",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "火",
+    "readings": [
+      "ひ",
+      "か"
+    ],
+    "meaning": "fire",
+    "intro": true,
+    "tier": 1
+  },
+  {
+    "id": "気",
+    "readings": [
+      "き",
+      "け"
+    ],
+    "meaning": "spirit, air",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "半",
+    "readings": [
+      "はん"
+    ],
+    "meaning": "half",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "先",
+    "readings": [
+      "さき",
+      "せん"
+    ],
+    "meaning": "ahead",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "行",
+    "readings": [
+      "いく",
+      "い",
+      "ゆく",
+      "こう"
+    ],
+    "meaning": "go",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "名",
+    "readings": [
+      "な",
+      "めい"
+    ],
+    "meaning": "name",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "白",
+    "readings": [
+      "しろい",
+      "しろ",
+      "はく"
+    ],
+    "meaning": "white",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "百",
+    "readings": [
+      "ひゃく"
+    ],
+    "meaning": "hundred",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "友",
+    "readings": [
+      "とも",
+      "ゆう"
+    ],
+    "meaning": "friend",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "見",
+    "readings": [
+      "みる",
+      "み",
+      "けん"
+    ],
+    "meaning": "see",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "父",
+    "readings": [
+      "ちち",
+      "ふ"
+    ],
+    "meaning": "father",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "右",
+    "readings": [
+      "みぎ",
+      "ゆう"
+    ],
+    "meaning": "right",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "左",
+    "readings": [
+      "ひだり",
+      "さ"
+    ],
+    "meaning": "left",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "西",
+    "readings": [
+      "にし",
+      "せい"
+    ],
+    "meaning": "west",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "母",
+    "readings": [
+      "はは",
+      "ぼ"
+    ],
+    "meaning": "mother",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "男",
+    "readings": [
+      "おとこ",
+      "だん"
+    ],
+    "meaning": "man",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "来",
+    "readings": [
+      "くる",
+      "く",
+      "らい"
+    ],
+    "meaning": "come",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "金",
+    "readings": [
+      "かね",
+      "きん"
+    ],
+    "meaning": "money, gold",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "学",
+    "readings": [
+      "がく"
+    ],
+    "meaning": "study",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "毎",
+    "readings": [
+      "まい"
+    ],
+    "meaning": "every",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "車",
+    "readings": [
+      "くるま",
+      "しゃ"
+    ],
+    "meaning": "car",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "休",
+    "readings": [
+      "やすむ",
+      "やす",
+      "きゅう"
+    ],
+    "meaning": "rest",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "国",
+    "readings": [
+      "くに",
+      "こく"
+    ],
+    "meaning": "country",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "長",
+    "readings": [
+      "ながい",
+      "なが",
+      "ちょう"
+    ],
+    "meaning": "long",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "東",
+    "readings": [
+      "ひがし",
+      "とう"
+    ],
+    "meaning": "east",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "何",
+    "readings": [
+      "なに",
+      "なん"
+    ],
+    "meaning": "what",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "後",
+    "readings": [
+      "あと",
+      "ご",
+      "うし"
+    ],
+    "meaning": "after",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "前",
+    "readings": [
+      "まえ",
+      "ぜん"
+    ],
+    "meaning": "before",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "時",
+    "readings": [
+      "じ",
+      "とき"
+    ],
+    "meaning": "time",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "高",
+    "readings": [
+      "たかい",
+      "たか",
+      "こう"
+    ],
+    "meaning": "expensive, high",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "食",
+    "readings": [
+      "たべる",
+      "た",
+      "しょく"
+    ],
+    "meaning": "eat",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "南",
+    "readings": [
+      "みなみ",
+      "なん"
+    ],
+    "meaning": "south",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "校",
+    "readings": [
+      "こう"
+    ],
+    "meaning": "school",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "書",
+    "readings": [
+      "かく",
+      "か",
+      "しょ"
+    ],
+    "meaning": "write",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "雨",
+    "readings": [
+      "あめ",
+      "う"
+    ],
+    "meaning": "rain",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "間",
+    "readings": [
+      "あいだ",
+      "ま",
+      "かん"
+    ],
+    "meaning": "interval",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "話",
+    "readings": [
+      "はなす",
+      "はな",
+      "わ"
+    ],
+    "meaning": "speak",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "電",
+    "readings": [
+      "でん"
+    ],
+    "meaning": "electricity",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "語",
+    "readings": [
+      "ご"
+    ],
+    "meaning": "language",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "聞",
+    "readings": [
+      "きく",
+      "き",
+      "ぶん"
+    ],
+    "meaning": "hear",
+    "intro": false,
+    "tier": 2
+  },
+  {
+    "id": "読",
+    "readings": [
+      "よむ",
+      "よ",
+      "どく"
+    ],
+    "meaning": "read",
+    "intro": false,
+    "tier": 2
+  }
+]
